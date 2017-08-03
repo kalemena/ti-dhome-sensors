@@ -17,6 +17,9 @@ Plenty emmiter send data using below as base board.
 
 ![JeeNode](/res/jeenode.jpg "JeeNode")
 
+Plenty sensors as seen on main page.
+
+Wiring sensors is described at [arduino-res](https://github.com/kalemena/arduino-res)
 
 # Implementation
 
