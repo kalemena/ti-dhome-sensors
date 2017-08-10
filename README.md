@@ -48,4 +48,7 @@ Sensors (1+ per board):
 
 # Models
 
-TBD
+## Model 1
+
+[Model 1](model-1) was done in 2010, based entirely on JeeLab work.
+
