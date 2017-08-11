@@ -11,11 +11,11 @@ One central transceiver receives all measures from all remote sensors.
 
 Receiver listens on USB tty port:
 
-![JeeLink](res/jeelink.jpg "JeeLink")
+![JeeLink](/res/jeelink.jpg "JeeLink")
 
 Plenty emmiter send data using below as base board.
 
-![JeeNode](res/jeenode.jpg "JeeNode")
+![JeeNode](/res/jeenode.jpg "JeeNode")
 
 
 # Implementation
