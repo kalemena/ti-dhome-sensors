@@ -52,3 +52,6 @@ Sensors (1+ per board):
 
 [Model 1](model-1) was done in 2010, based entirely on JeeLab work.
 
+## Model 2
+
+[Model 2](model-2) was done in 2015, with little evolution from model 1.
