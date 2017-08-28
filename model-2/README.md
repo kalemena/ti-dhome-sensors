@@ -15,7 +15,7 @@ Receiver listens on USB tty port:
 
 Plenty emmiter send data using below as base board.
 
-![Arduino pro mini](/res/arduino-pre-mini.jpg "Arduino Pro Mini 3.3v")
+![Arduino pro mini](/res/arduino-pro-mini.jpg "Arduino Pro Mini 3.3v")
 
 Plenty sensors as seen on main page.
 
@@ -34,7 +34,7 @@ Basically initial boards are done like below:
 
 Going from Breadboard to PCB using simple double side PCB:
 
-![Breadboard](/res/avant.jpg "Breadboard")
+![Breadboard](/res/avant.png "Breadboard")
 
 PCB sample look like below:
 
