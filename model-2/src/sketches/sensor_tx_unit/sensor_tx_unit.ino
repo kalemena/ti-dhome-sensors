@@ -1,4 +1,4 @@
-#define RF69_COMPAT 0 // define this to use the RF69 driver i.s.o. RF12
+#define RF69_COMPAT 1 // define this to use the RF69 driver i.s.o. RF12
 
 #include "DHT.h"
 #include <JeeLib.h>
@@ -7,17 +7,20 @@
 #include <PortsLCD.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <Wire.h>
+#include "SparkFunHTU21D.h"
 #include <avr/sleep.h>
 #include <util/atomic.h>
 #include <Vcc.h>
 
-#define NODEID    10        // node ID used for this unit
+#define NODEID    80        // node ID used for this unit
 #define NODEGROUP 5         // node GROUP used for this unit
 #define REPORT_PERIOD  300  // how often to measure, in tenths of seconds
 
+#define HTU21D_ENABLED true// define I2C plugged on A4/A5
 #define SHT11_PORT     0    // define SHT11 port
 #define DHT22_PORT     0    // define DHT22 port (8 ?)
-#define DS18B20_1_PORT 4    // WARNING 4=DIO port 1, 5=PORT2, 6=PORT3, 7=PORT4 ... 1-wire temperature sensors
+#define DS18B20_1_PORT 0    // WARNING 4=DIO port 1, 5=PORT2, 6=PORT3, 7=PORT4 ... 1-wire temperature sensors
 #define DS18B20_2_PORT 0    // WARNING ..
 #define LDR_PORT       0    // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
 #define LDR_ENABLED    false
@@ -76,6 +79,9 @@ Vcc vcc(BATTERY_CORRECTION);
     PortI2C i2c_pressure(BMP85_PORT);
     BMP085 psensor (i2c_pressure, 3); // ultra high resolution
 #endif
+#if HTU21D_ENABLED
+    HTU21D htu21d;
+#endif
 
 // has to be defined because we're using the watchdog for low-power waiting
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
@@ -121,6 +127,18 @@ static void measureAndReport() {
         payload.port = 3;
         report();
       }
+    #endif
+    #if HTU21D_ENABLED
+      float h = htu21d.readHumidity();
+      float t = htu21d.readTemperature();
+      payload.type = TEMPERATURE;
+      payload.value = 10 * t;
+      payload.port = 2;   
+      report();
+      payload.type = HUMIDITY;
+      payload.value = 10 * h;
+      payload.port = 3;
+      report();
     #endif
     #if DS18B20_1_PORT
         payload.type = TEMPERATURE;
@@ -234,7 +252,9 @@ void setup () {
     #if TOGGLE_2_PORT
       pinMode(TOGGLE_2_PORT, INPUT); 
     #endif
-   
+    #if HTU21D_ENABLED
+      htu21d.begin();
+    #endif
     reportCount = 0;
     scheduler.timer(REPORT, 0);    // start the measurement loop going
 }
