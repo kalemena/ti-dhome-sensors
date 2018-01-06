@@ -9,6 +9,7 @@
 #include <DallasTemperature.h>
 #include <Wire.h>
 #include "SparkFunHTU21D.h"
+#include "TSL2561.h"
 #include <avr/sleep.h>
 #include <util/atomic.h>
 #include <Vcc.h>
@@ -17,13 +18,17 @@
 #define NODEGROUP 5         // node GROUP used for this unit
 #define REPORT_PERIOD  300  // how often to measure, in tenths of seconds
 
-#define HTU21D_ENABLED true// define I2C plugged on A4/A5
+#define HTU21D_ENABLED false// define I2C plugged on A4/A5
+// The address will be different depending on whether you let
+// the ADDR pin float (addr 0x39=TSL2561_ADDR_FLOAT), or tie it to ground or vcc. In those cases
+// use TSL2561_ADDR_LOW (0x29) or TSL2561_ADDR_HIGH (0x49) respectively
+#define TSL2561_ADDR   0
 #define SHT11_PORT     0    // define SHT11 port
 #define DHT22_PORT     0    // define DHT22 port (8 ?)
 #define DS18B20_1_PORT 0    // WARNING 4=DIO port 1, 5=PORT2, 6=PORT3, 7=PORT4 ... 1-wire temperature sensors
 #define DS18B20_2_PORT 0    // WARNING ..
-#define LDR_PORT       0    // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
-#define LDR_ENABLED    false
+#define LDR_PORT       1    // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
+#define LDR_ENABLED    true
 #define BMP85_PORT     0    // define BMP85 port
 #define SOIL_PORT      0    // A0, A1 ...
 #define SOIL_ENABLED   false
@@ -81,6 +86,9 @@ Vcc vcc(BATTERY_CORRECTION);
 #endif
 #if HTU21D_ENABLED
     HTU21D htu21d;
+#endif
+#if TSL2561_ADDR
+  TSL2561 tsl(TSL2561_ADDR);
 #endif
 
 // has to be defined because we're using the watchdog for low-power waiting
@@ -210,6 +218,13 @@ static void measureAndReport() {
       payload.port = 11;
       report();
     #endif
+    #if TSL2561_ADDR
+      uint16_t tslL = tsl.getLuminosity(TSL2561_VISIBLE);
+      payload.type = LIGHT;
+      payload.value = tslL;
+      payload.port = 20;
+      report();
+    #endif
 }
 
 static void report() {
@@ -255,6 +270,14 @@ void setup () {
     #if HTU21D_ENABLED
       htu21d.begin();
     #endif
+    #if TSL2561_ADDR
+      tsl.begin();
+      tsl.setGain(TSL2561_GAIN_16X);
+      tsl.setTiming(TSL2561_INTEGRATIONTIME_13MS);  // shortest integration time (bright light)
+      //tsl.setTiming(TSL2561_INTEGRATIONTIME_101MS);  // medium integration time (medium light)
+      //tsl.setTiming(TSL2561_INTEGRATIONTIME_402MS);  // longest integration time (dim light)
+    #endif
+    
     reportCount = 0;
     scheduler.timer(REPORT, 0);    // start the measurement loop going
 }
