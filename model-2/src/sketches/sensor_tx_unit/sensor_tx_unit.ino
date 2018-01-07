@@ -27,10 +27,10 @@
 #define DHT22_PORT     0    // define DHT22 port (8 ?)
 #define DS18B20_1_PORT 0    // WARNING 4=DIO port 1, 5=PORT2, 6=PORT3, 7=PORT4 ... 1-wire temperature sensors
 #define DS18B20_2_PORT 0    // WARNING ..
-#define LDR_PORT       1    // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
-#define LDR_ENABLED    true
+#define LDR_PORT       A0   // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
+#define LDR_ENABLED    false
 #define BMP85_PORT     0    // define BMP85 port
-#define SOIL_PORT      0    // A0, A1 ...
+#define SOIL_PORT      A1    // A0, A1 ...
 #define SOIL_ENABLED   false
 #define TOGGLE_1_PORT  0    // digital port
 #define TOGGLE_2_PORT  0    // digital port
@@ -187,7 +187,7 @@ static void measureAndReport() {
         report();        
     #endif
     #if LDR_ENABLED
-        int32_t LDRReading = 255 - analogRead(LDR_PORT) / 4;
+        int32_t LDRReading = analogRead(LDR_PORT); //255 - analogRead(LDR_PORT) / 4;
 
         payload.type = LIGHT;
         payload.value = LDRReading;
