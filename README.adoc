@@ -1,4 +1,8 @@
-# ti-dhome-sensors
+
+:imagesdir: res
+:toc:
+
+= ti-dhome-sensors
 
 Sensors library (use with ti-dhome home automation)
 
@@ -7,6 +11,7 @@ This is custom Sensor unit handler used to capture plenty of metrics and send th
 The initial model units are heavily inspired from the venerable JeeLab Room node.
 
 Sensors are placed in each room and are each monitoring few of below metrics:
+
 * Temparature (1 or more sensor per unit)
 * Humidity
 * Pressure
@@ -17,24 +22,28 @@ Sensors are placed in each room and are each monitoring few of below metrics:
 * TODO: pH-meter / CO2
 
 Eventualy, the various measure will serve for:
+
 * control electric heaters
 * control VMC (home motorized air flow controler)
 * alarms on various actions (plants, etc)
 
-# Hardware
+= Hardware
 
 Central board:
+
 * JeeLink (full enclosure, see JeeLab web site)
 or
 * TBD: Arduino nano 3.3v + radio (RFM12B or RFM69CW)
 
 Base board for sensors:
+
 * model 1 : RFM12B (868Mhz) JeeNode (arduino compatible + radio, see JeeLab web site)
 * model 2 : RFM69CW (868Mhz) Arduino pro mini 3.3v or clone
 
 * Batteries: 3xAA or 1xAA+3.3v step-up, or other
 
 Sensors (1+ per board):
+
 * Temparature: DS18B20 (waterproof or not: for some reason waterproof is cheaper!)
 * Temparature + Humidity: SHT11 or DHT22 (bigger but with case, and cheaper!)
 * Pressure: BMP85
@@ -44,14 +53,14 @@ Sensors (1+ per board):
 * Gaz: TBD
 * pH-meter / CO2: TBD
 
-![Parts](res/Arduino-parts.jpg?raw=true "Parts")
+image:Arduino-parts.jpg[Parts]
 
-# Models
+= Models
 
-## Model 1
+== Model 1
 
-[Model 1](model-1) was done in 2010, based entirely on JeeLab work.
+link:model-1[Model 1] was done in 2010, based entirely on JeeLab work.
 
-## Model 2
+== Model 2
 
-[Model 2](model-2) was done in 2015, with little evolution from model 1.
+link:model-2[Model 2] was done in 2015, with little evolution from model 1.
