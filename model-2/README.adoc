@@ -43,6 +43,8 @@ PCB sample look like below:
 
 image:apres.jpg[PCB]
 
+image:model-2-top-fzz.png[Model 2 Top] image:model-2-bottom-fzz.png[Model 2 Bottom]
+
 = Implementation
 
 == How-To - central receiver node
