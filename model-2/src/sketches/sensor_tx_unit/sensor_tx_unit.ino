@@ -14,17 +14,17 @@
 #include <util/atomic.h>
 #include <Vcc.h>
 
-#define NODEID    80        // node ID used for this unit
+#define NODEID    30        // node ID used for this unit
 #define NODEGROUP 5         // node GROUP used for this unit
 #define REPORT_PERIOD  300  // how often to measure, in tenths of seconds
 
-#define HTU21D_ENABLED false// define I2C plugged on A4/A5
+#define HTU21D_ENABLED true // define I2C plugged on A4/A5
 // The address will be different depending on whether you let
 // the ADDR pin float (addr 0x39=TSL2561_ADDR_FLOAT), or tie it to ground or vcc. In those cases
 // use TSL2561_ADDR_LOW (0x29) or TSL2561_ADDR_HIGH (0x49) respectively
 #define TSL2561_ADDR   0
 #define SHT11_PORT     0    // define SHT11 port
-#define DHT22_PORT     0    // define DHT22 port (8 ?)
+#define DHT22_PORT     0    // define DHT22 port (9 ?)
 #define DS18B20_1_PORT 0    // WARNING 4=DIO port 1, 5=PORT2, 6=PORT3, 7=PORT4 ... 1-wire temperature sensors
 #define DS18B20_2_PORT 0    // WARNING ..
 #define LDR_PORT       A0   // define LDR on AO,A1,... pin  // WARNING 1=A0, 2=A1, 3=A2, 4=A3
@@ -32,10 +32,15 @@
 #define BMP85_PORT     0    // define BMP85 port
 #define SOIL_PORT      A1    // A0, A1 ...
 #define SOIL_ENABLED   false
-#define TOGGLE_1_PORT  0    // digital port
+#define TOGGLE_1_PORT  0    // digital port (3/4)
 #define TOGGLE_2_PORT  0    // digital port
-// #define BATTERY_CORRECTION 3.86/3.71 // Measured Vcc by multimeter divided by reported Vcc
-#define BATTERY_CORRECTION 1 // Measured Vcc by multimeter divided by reported Vcc
+
+#define BATTERY_CORRECTION 3.980/3.473 // Measured Vcc by multimeter divided by reported Vcc
+// #define BATTERY_CORRECTION 1 // Measured Vcc by multimeter divided by reported Vcc
+
+#define CORRECTION_TEMP_SHT11 0
+#define CORRECTION_TEMP_DHT22 0
+#define CORRECTION_TEMP_HTU21 0.25
 
 // set the sync mode to 2 if the fuses are still the Arduino default
 // mode 3 (full powerdown) can only be used with 258 CK startup fuses
@@ -110,42 +115,42 @@ static void measureAndReport() {
         float h, t;
         sht11.calculate(h, t);
         payload.type = TEMPERATURE;
-        payload.value = 10 * t;
-        payload.port = 2;   
+        payload.value = 10 * (t + (float) CORRECTION_TEMP_SHT11);
+        payload.port = 31;   
         report();
         
         payload.type = HUMIDITY;
         payload.value = 10 * h;
-        payload.port = 3;
+        payload.port = 41;
         report();
     #endif
     #if DHT22_PORT
-      float h = dht.getHumidity();
-      float t = dht.getTemperature();
+      float h2 = dht.getHumidity();
+      float t2 = dht.getTemperature();
       
       String eq= "OK";
       String res = dht.getStatusString();
       if(eq.equals(res)) {
         payload.type = TEMPERATURE;
-        payload.value = 10 * t;
-        payload.port = 2;   
+        payload.value = 10 * (t2 + (float) CORRECTION_TEMP_DHT22);
+        payload.port = 32;   
         report();
         payload.type = HUMIDITY;
-        payload.value = 10 * h;
-        payload.port = 3;
+        payload.value = 10 * h2;
+        payload.port = 42;
         report();
       }
     #endif
     #if HTU21D_ENABLED
-      float h = htu21d.readHumidity();
-      float t = htu21d.readTemperature();
+      float h1 = htu21d.readHumidity();
+      float t1 = htu21d.readTemperature();
       payload.type = TEMPERATURE;
-      payload.value = 10 * t;
-      payload.port = 2;   
+      payload.value = 10 * t1 + ((float) CORRECTION_TEMP_HTU21);
+      payload.port = 33;   
       report();
       payload.type = HUMIDITY;
-      payload.value = 10 * h;
-      payload.port = 3;
+      payload.value = 10 * h1;
+      payload.port = 43;
       report();
     #endif
     #if DS18B20_1_PORT
@@ -153,7 +158,7 @@ static void measureAndReport() {
         sensors_1.requestTemperatures(); 
         float tempC1 = sensors_1.getTempC(insideThermometer_1);
         payload.value = tempC1 * 10;
-        payload.port = 4;
+        payload.port = 34;
         report();
     #endif
     #if DS18B20_2_PORT
@@ -161,7 +166,7 @@ static void measureAndReport() {
         sensors_2.requestTemperatures(); 
         float tempC2 = sensors_2.getTempC(insideThermometer_2);
         payload.value = tempC2 * 10;
-        payload.port = 5;
+        payload.port = 35;
         report();
     #endif
     #if BMP85_PORT
@@ -178,7 +183,7 @@ static void measureAndReport() {
 
         payload.type = TEMPERATURE;
         payload.value = tempBMP85;
-        payload.port = 6;
+        payload.port = 36;
         report();
         
         payload.type = PRESSURE;
@@ -198,7 +203,6 @@ static void measureAndReport() {
       int32_t sensorValue = analogRead(SOIL_PORT);
       //sensorValue = constrain(sensorValue, 600, 1022);
       //int soil = map(sensorValue, 600, 1022, 100, 0);
-  
       payload.type = SOIL;
       payload.value = sensorValue;
       payload.port = 9;
@@ -262,7 +266,8 @@ void setup () {
       pinMode(LDR_PORT, INPUT_PULLUP);
     #endif
     #if TOGGLE_1_PORT
-      pinMode(TOGGLE_1_PORT, INPUT); 
+      pinMode(TOGGLE_1_PORT, INPUT);
+      // attachInterrupt(digitalPinToInterrupt(TOGGLE_1_PORT), loop, CHANGE);
     #endif
     #if TOGGLE_2_PORT
       pinMode(TOGGLE_2_PORT, INPUT); 
@@ -286,13 +291,13 @@ void loop () {
   switch (scheduler.pollWaiting()) 
   {
     case REPORT:
-	reportCount++;
-    
-	// reschedule these measurements periodically
-	scheduler.timer(REPORT, REPORT_PERIOD);
-	measureAndReport();
-		    
-	//scheduler.timer(REPORT, 0);
-	break;            
+    	reportCount++;
+        
+    	// reschedule these measurements periodically
+    	scheduler.timer(REPORT, REPORT_PERIOD);
+    	measureAndReport();
+    		    
+    	//scheduler.timer(REPORT, 0);
+    	break;            
   }
 }
