@@ -64,3 +64,7 @@ link:model-1[Model 1] was done in 2010, based entirely on JeeLab work.
 == Model 2
 
 link:model-2[Model 2] was done in 2015, with little evolution from model 1.
+
+= References
+
+* link:https://www.instructables.com/id/LEIDS-Low-Energy-IOT-Door-Sensor[Check this circuit]
