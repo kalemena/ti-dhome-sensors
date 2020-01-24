@@ -1,14 +1,23 @@
 
-:imagesdir: res
 :toc:
+
+ifdef::env-github[]
+:imagesdir: res
+endif::[]
 
 = ti-dhome-sensors
 
-Sensors library (use with ti-dhome home automation)
+Sensors library.
 
-This is custom Sensor unit handler used to capture plenty of metrics and send them over the air to central server.
+This is DIY Sensor unit handler used to capture plenty of metrics and send them over the air to central server.
+
+NOTE: This project is part of a wider link:https://github.com/kalemena/ti-dhome[TiDhome Home Automation] project.
 
 The initial model units are heavily inspired from the venerable JeeLab Room node.
+
+image:architecture.png[Architecture]
+
+== Usage
 
 Sensors are placed in each room and are each monitoring few of below metrics:
 
@@ -21,31 +30,30 @@ Sensors are placed in each room and are each monitoring few of below metrics:
 * TODO: gaz
 * TODO: pH-meter / CO2
 
-Eventualy, the various measure will serve for:
+Eventualy, the various measure serve to:
 
 * control electric heaters
 * control VMC (home motorized air flow controler)
-* alarms on various actions (plants, etc)
+* alarm on various actions (plants, etc)
+* etc
 
 = Hardware
 
-Central board:
+*Central board:*
 
 * JeeLink (full enclosure, see JeeLab web site)
-or
-* TBD: Arduino nano 3.3v + radio (RFM12B or RFM69CW)
 
-Base board for sensors:
+Base board for *sensors model*:
 
 * model 1 : RFM12B (868Mhz) JeeNode (arduino compatible + radio, see JeeLab web site)
 * model 2 : RFM69CW (868Mhz) Arduino pro mini 3.3v or clone
 
-* Batteries: 3xAA or 1xAA+3.3v step-up, or other
+*Batteries:* 3xAA or 1xAA+3.3v step-up, or other
 
-Sensors (1+ per board):
+*Sensors* (1+ per board):
 
-* Temparature: DS18B20 (waterproof or not: for some reason waterproof is cheaper!)
-* Temparature + Humidity: SHT11 or DHT22 (bigger but with case, and cheaper!)
+* Temperature: DS18B20 (waterproof or not)
+* Temparature + Humidity: SHT11, DHT22, HTU21
 * Pressure: BMP85
 * Light: standard LDR
 * Move: TBD
