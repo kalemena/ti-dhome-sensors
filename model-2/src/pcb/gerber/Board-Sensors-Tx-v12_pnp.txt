@@ -1,0 +1,75 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=Board-Sensors-Tx-v12
+*Date=21:09:30
+*CreatedBy=Fritzing 0.9.2b.11.19.8d2d5970658f0bed09c661c9ea9a515b5f40f44c
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;THT;27.1966;-7.83347;0;Bottom; + Rst - (+)
+2;;THT;27.1966;-25.6135;0;Bottom;10 .11 12 13. A0 A1
+3;;;41.1666;-35.1385;0;Bottom;Via5
+4;;;16.41;-5.26813;0;Bottom;Via65
+5;;THT;46.8816;-17.9935;90;Bottom; 
+6;;THT;46.8816;-15.4535;90;Bottom;I3/4+
+7;;;13.9052;-9.72107;0;Bottom;Via60
+8;;;34.8166;-9.10347;0;Bottom;Via62
+9;;;25.2916;-15.4535;0;Bottom;Via64
+10;;;13.8616;-26.8835;0;Bottom;Via67
+11;220k;0805 [SMD];35.2066;-16.7235;180;Bottom;L0-200k
+12;;THT;10.0516;-41.4885;0;Bottom;+
+13;;THT;48.1516;-24.3435;0;Bottom;I/O
+14;;;16.4016;-9.73847;0;Bottom;Via54
+15;4.7k;0805 [SMD];18.3066;-17.7485;90;Bottom;4.7k
+16;4.7k;0805 [SMD];16.7916;-23.0735;180;Bottom;4.7k
+17;;1x01_offset;18.3066;-2.02957;180;Bottom;JP14
+18;;1x01_offset;20.8466;-2.02957;180;Bottom;JP13
+19;;;24.6566;-43.3935;0;Bottom;Via41
+20;;THT;48.1516;-42.1235;0;Bottom; +DHT22
+21;;;30.3716;-45.2985;0;Bottom;Via51
+22;;THT;10.0516;-3.38847;0;Bottom;-
+23;;THT;3.06663;-7.19847;-90;Bottom; 
+24;;;40.5316;-47.2035;0;Bottom;Via50
+25;4.7k;0805 [SMD];36.9666;-19.2635;0;Bottom; 
+26;;;18.2716;-36.3882;0;Bottom;Via66
+27;;1x01_offset;15.7666;-2.02957;180;Bottom;JP15
+28;;;13.8528;-14.7942;0;Bottom;Via68
+29;4.7k;0805 [SMD];45.6116;-31.0835;90;Bottom;T-8-4.7k
+30;;;9.5963;-47.6433;0;Bottom;TXT1
+31;4.7k;0805 [SMD];36.9666;-21.8035;0;Bottom;I3/4-10M
+32;;THT;34.8166;-1.48347;-90;Bottom;FTDI
+33;;THT;48.1516;-5.29347;-180;Bottom;S1+
+34;;;13.8616;-23.0735;0;Bottom;Via72
+35;;;20.1892;-23.0483;0;Bottom;Via71
+36;;THT;48.1516;-31.9635;0;Bottom;+DS18
+37;;;16.4374;-20.547;0;Bottom;Via70
+38;;THT;18.3066;-7.19847;-90;Bottom; 
+39;;;13.8616;-33.8685;0;Bottom;Via52
+40;;THT;3.06663;-28.7885;-90;Bottom; 
+41;;;44.9466;-36.3789;0;Bottom;Via58
+42;;sma-diode;5.36163;-34.5035;0;Bottom;D1
+43;;;25.2916;-39.5835;0;Bottom;Via61
+44;4.7k;0805 [SMD];39.2616;-6.17347;-90;Bottom;S1-10k
+45;;;9.64774;-45.5429;0;Bottom;TXT1
+46;;THT;32.2766;-31.9635;-90;Bottom; 
+47;;1x01_offset;13.2266;-2.02957;180;Bottom;JP16
+48;;;2.84105;-19.1103;90;Bottom;DHT
+49;;;18.9416;-46.5685;0;Bottom;Via43
+50;;THT;30.0754;-14.065;0;Bottom;I2C
+51;;THT;18.3066;-28.7885;-90;Bottom; 
+52;;1x01_offset;23.3866;-2.02957;180;Bottom;JP12
+53;;THT;24.0216;-48.4735;0;Bottom;T
+54;;THT;22.7168;-24.3425;180;Bottom;DA CL - +
+55;;THT;42.4366;-21.8035;180;Bottom; 9 8 7 6 5 4 3 2 G
+56;;THT;46.8816;-11.6435;-90;Bottom; L0+
+57;;THT;22.7168;-11.0075;180;Bottom;CL DA - +
+58;;;24.7274;-16.7251;90;Bottom;DHT
+59;;THT;22.7168;-37.6775;180;Bottom;+ - CL DA
+60;;;34.9062;-41.3557;180;Top;RFM12b2

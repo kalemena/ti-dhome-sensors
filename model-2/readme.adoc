@@ -38,7 +38,7 @@ image:20150104_211827-notes.JPG[Wiring Breadboard 1xAAA]
 
 == PCB design
 
-Going from Breadboard to PCB using simple double side PCB:
+Going from Breadboard to PCB using simple double side link:src/pcb[PCB]:
 
 image:avant.png[Breadboard]
 
