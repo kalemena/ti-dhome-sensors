@@ -76,3 +76,18 @@ link:model-2[Model 2] was done in 2015, with little evolution from model 1.
 = References
 
 * link:https://www.instructables.com/id/LEIDS-Low-Energy-IOT-Door-Sensor[Check this circuit]
+
+.To Check
+[%collapsible]
+====
+* link:https://www.mysensors.org/apidocs-beta/MyHwESP32_8h_source.html[]
+* link:https://www.mysensors.org/build/connect_radio[]
+* link:https://github.com/mysensors/MySensors/tree/master[]
+====
+
+.Fun IoT projects
+[%collapsible]
+====
+* link:https://www.instructables.com/id/Save-Water-With-the-Shower-Water-Monitor/[]
+* link:https://www.instructables.com/id/Battery-Powered-Door-Sensor-With-Home-Automation-I[]
+====
