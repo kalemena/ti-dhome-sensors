@@ -14,7 +14,7 @@
 #include <util/atomic.h>
 #include <Vcc.h>
 
-#define NODEID    30        // node ID used for this unit
+#define NODEID    31        // node ID used for this unit
 #define NODEGROUP 5         // node GROUP used for this unit
 #define REPORT_PERIOD  300  // how often to measure, in tenths of seconds
 
@@ -35,12 +35,12 @@
 #define TOGGLE_1_PORT  0    // digital port (3/4)
 #define TOGGLE_2_PORT  0    // digital port
 
-#define BATTERY_CORRECTION 3.980/3.473 // Measured Vcc by multimeter divided by reported Vcc
+#define BATTERY_CORRECTION 3.810/3.420 // Measured Vcc by multimeter divided by reported Vcc
 // #define BATTERY_CORRECTION 1 // Measured Vcc by multimeter divided by reported Vcc
 
 #define CORRECTION_TEMP_SHT11 0
 #define CORRECTION_TEMP_DHT22 0
-#define CORRECTION_TEMP_HTU21 0.25
+#define CORRECTION_TEMP_HTU21 -0.2
 
 // set the sync mode to 2 if the fuses are still the Arduino default
 // mode 3 (full powerdown) can only be used with 258 CK startup fuses
@@ -145,7 +145,7 @@ static void measureAndReport() {
       float h1 = htu21d.readHumidity();
       float t1 = htu21d.readTemperature();
       payload.type = TEMPERATURE;
-      payload.value = 10 * t1 + ((float) CORRECTION_TEMP_HTU21);
+      payload.value = 10 * (t1 + (float) CORRECTION_TEMP_HTU21);
       payload.port = 33;   
       report();
       payload.type = HUMIDITY;
