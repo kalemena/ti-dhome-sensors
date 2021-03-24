@@ -37,11 +37,11 @@ Eventualy, the various measure serve to:
 * alarm on various actions (plants, etc)
 * etc
 
-= Hardware
+== Hardware
 
 *Central board:*
 
-* JeeLink (full enclosure, see JeeLab web site)
+* JeeLink (full enclosure, see link:https://www.digitalsmarties.net/products/jeelink[JeeLab] web site)
 
 Base board for *sensors model*:
 
@@ -50,7 +50,7 @@ Base board for *sensors model*:
 
 *Batteries:* 3xAA or 1xAA+3.3v step-up, or other
 
-*Sensors* (1+ per board):
+*Sensors* (one or more per board):
 
 * Temperature: DS18B20 (waterproof or not)
 * Temparature + Humidity: SHT11, DHT22, HTU21
@@ -63,17 +63,17 @@ Base board for *sensors model*:
 
 image:Arduino-parts.jpg[Parts]
 
-= Models
+== Models
 
-== Model 1
+=== Model 1
 
 link:model-1[Model 1] was done in 2010, based entirely on JeeLab work.
 
-== Model 2
+=== Model 2
 
 link:model-2[Model 2] was done in 2015, with little evolution from model 1.
 
-= References
+== More readings
 
 * link:https://www.instructables.com/id/LEIDS-Low-Energy-IOT-Door-Sensor[Check this circuit]
 
