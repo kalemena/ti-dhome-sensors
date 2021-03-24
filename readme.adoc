@@ -7,9 +7,9 @@ endif::[]
 
 = ti-dhome-sensors
 
-Sensors library.
+Arduino-based sensors library.
 
-This is DIY Sensor unit handler used to capture plenty of metrics and send them over the air to central server.
+This is DIY Sensor unit used to capture plenty of metrics and send them over the air to central unit server.
 
 NOTE: This project is part of a wider link:https://github.com/kalemena/ti-dhome[TiDhome Home Automation] project.
 
