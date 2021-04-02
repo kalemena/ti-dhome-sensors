@@ -90,4 +90,5 @@ link:model-2[Model 2] was done in 2015, with little evolution from model 1.
 ====
 * link:https://www.instructables.com/id/Save-Water-With-the-Shower-Water-Monitor/[]
 * link:https://www.instructables.com/id/Battery-Powered-Door-Sensor-With-Home-Automation-I[]
+* link:https://www.instructables.com/Autonomous-Solar-powered-Irrigation-Monitoring-Sta[]
 ====
